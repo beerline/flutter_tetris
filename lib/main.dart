@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertetris/game/game.dart';
 import 'package:fluttertetris/game/ui_elements/game_field.dart';
@@ -37,12 +39,24 @@ class MainWidget extends StatefulWidget {
 class _MainWidgetState extends State<MainWidget> {
   GameAbstract game;
   static const double cellPadding = 1;
+  int count =0;
 
   @override
   void initState() {
     super.initState();
     game = serviceLocator<GameAbstract>();
   }
+
+  void _startGame() {
+    Timer.periodic(Duration(milliseconds: 800), (Timer t) {
+      setState(() {
+//        count += 1;
+        game.step();
+      });
+    });
+  }
+
+  _updateGame() {}
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +84,12 @@ class _MainWidgetState extends State<MainWidget> {
                 flex: 2,
                 child: Row(
                   children: <Widget>[
-                    Container(color: Colors.lightGreenAccent,width: 210,),
+                    FlatButton(
+                      onPressed: _startGame,
+                      child: Text('Start'),
+                      color: Colors.lightGreenAccent,
+                    ),
+                    Text('count=$count',style: TextStyle(color: Colors.amber, fontSize: 24)),
                   ],
                 ),
               ),

@@ -1,5 +1,4 @@
 import 'package:fluttertetris/game/block.dart';
-import 'package:fluttertetris/game/coordinte.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
@@ -62,14 +61,17 @@ class SShape extends ShapeAbstract {
 
   @override
   bool detectCollision(PlayFieldAbstract playField) {
-    // TODO: implement detectCollision
-    return null;
+    blocks.forEach((block){
+      if (playField.blocks.containsKey(block.coordinate)) {
+
+      }
+    });
   }
 
   @override
-  moveDown(int contBricksOnX) {
+  moveDown(PlayFieldAbstract playField) {
     blocks.forEach((b) {
-      b.coordinate += contBricksOnX ;
+      b.coordinate += playField.xSize;
     });
   }
 }

@@ -3,7 +3,7 @@ import 'package:fluttertetris/game/level.dart';
 abstract class SpeedAbstract {
 
   double getMillisecond(LevelAbstract level) {
-    return getFramesPerCell(level.current) / fps * 100;
+    return getFramesPerCell(level.current) / fps * 1000;
   }
 
   int get fps;

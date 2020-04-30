@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertetris/game/ui_elements/brick.dart';
+import 'package:fluttertetris/game/block.dart';
 
 abstract class PlayFieldAbstract {
   final int xSize;
   final int ySize;
   final Color colorBackGroundBlock;
-  Map<int, Brick> bricks;
+  Map<int, Block> blocks;
 
   PlayFieldAbstract(this.xSize, this.ySize, this.colorBackGroundBlock);
 
-  mergeShapeToStack();
+  mergeShapeToStack(List<Block> blocks);
   removeLinesFromStack();
   bool detectBurningLines();
 
@@ -34,9 +34,10 @@ class PlayField extends PlayFieldAbstract {
   }
 
   @override
-  mergeShapeToStack() {
-    // TODO: implement mergeShapeToStack
-    return null;
+  mergeShapeToStack(List<BlockAbstract> blocks) {
+    blocks.forEach((block) {
+      this.blocks[block.coordinate] = block;
+    });
   }
 
   @override

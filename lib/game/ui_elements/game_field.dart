@@ -18,9 +18,9 @@ class GameField extends StatelessWidget {
         for (int j = 0; j < playField.xSize; j++) {
           orderNumber++;
           Color color;
-          if (playField.bricks != null &&
-              playField.bricks.containsKey(orderNumber)) {
-            color = playField.bricks[orderNumber].color;
+          if (playField.blocks != null &&
+              playField.blocks.containsKey(orderNumber)) {
+            color = playField.blocks[orderNumber].color;
           } else {
             color = playField.colorBackGroundBlock;
           }
