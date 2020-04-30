@@ -13,6 +13,7 @@ abstract class GameAbstract {
 
   step();
   gameOver();
+  _detectCollision();
 }
 
 class Game extends GameAbstract {
@@ -34,18 +35,26 @@ class Game extends GameAbstract {
   @override
   step() {
     // TODO: implement step
-
-    // if create shape
+    // if playing shape exist // in game
+      // move down
       // if detectCollision // in shapes
         // if detectBurningLines // in play_field
           // removeLinesFromStack // in play_field
           // addNewEmptyLinesOnTop // ??
         // else
           // mergeShapeToStack // in play_field
-      // else
-        // moveDown // in shapes
     // else
-      // gameOver // game
+      // if create shape
+        // if detectCollision // in shapes
+          // if detectBurningLines // in play_field
+            // removeLinesFromStack // in play_field
+            // addNewEmptyLinesOnTop // ??
+          // else
+            // mergeShapeToStack // in play_field
+        // else
+          // moveDown // in shapes
+      // else
+        // gameOver // game
 
   }
 

@@ -15,7 +15,7 @@ abstract class ShapeAbstract {
 
   bool detectCollision(PlayFieldAbstract playField);
 
-  moveDown();
+  moveDown(int contBricksOnX);
 
   get orientation => _orientation;
   get blocks;

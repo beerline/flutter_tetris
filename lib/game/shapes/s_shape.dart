@@ -4,99 +4,58 @@ import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
+class TurnException implements Exception {}
+
 class SShape extends ShapeAbstract {
   List<BlockAbstract> blocks;
 
   SShape({blocks})
-      : blocks = blocks ?? List.from([
-          Block(
-            Coordinate(0, [1, 2]),
-          ),
-          Block(
-            Coordinate(1, [0, 1]),
-          )
-        ]);
+      : blocks = blocks ??
+            List.from([
+              Block(8),
+              Block(9),
+              Block(12),
+              Block(13),
+            ]);
 
   @override
   // TODO turning with counting boundaries
   clockwise(PlayFieldAbstract playField) {
-    switch (orientation.current) {
-      case EnumShapeOrientation.one:
-        blocks = List.from([
-          Block(
-            Coordinate(
-              blocks[0].coordinate.y,
-              [blocks[0].coordinate.xs[0]],
-            ),
-          ),
-          Block(
-            Coordinate(
-              blocks[1].coordinate.y,
-              [blocks[1].coordinate.xs[1], blocks[0].coordinate.xs[1]],
-            ),
-          ),
-          Block(
-            Coordinate(
-              blocks[1].coordinate.y + 1,
-              [blocks[0].coordinate.xs[1]],
-            ),
-          ),
-        ]);
-        break;
-      case EnumShapeOrientation.two:
-        blocks = List.from([
-          Block(
-            Coordinate(
-              blocks[1].coordinate.y,
-              [blocks[1].coordinate.xs[0], blocks[1].coordinate.xs[1]],
-            ),
-          ),
-          Block(
-            Coordinate(
-              blocks[2].coordinate.y,
-              [blocks[1].coordinate.xs[0] - 1, blocks[1].coordinate.xs[0]],
-            ),
-          ),
-        ]);
-        break;
-      case EnumShapeOrientation.three:
-        blocks = List.from([
-          Block(
-            Coordinate(
-              blocks[0].coordinate.y - 1,
-              [blocks[1].coordinate.xs[0]],
-            ),
-          ),
-          Block(
-            Coordinate(
-              blocks[0].coordinate.y,
-              [blocks[1].coordinate.xs[0], blocks[1].coordinate.xs[1]],
-            ),
-          ),
-          Block(
-            Coordinate(
-              blocks[1].coordinate.y,
-              [blocks[1].coordinate.xs[1]],
-            ),
-          ),
-        ]);
-        break;
-      case EnumShapeOrientation.four:
-        blocks = List.from([
-          Block(
-            Coordinate(
-              blocks[0].coordinate.y,
-              [blocks[0].coordinate.xs[0] + 1, blocks[0].coordinate.xs[0] + 2],
-            ),
-          ),
-          Block(
-            Coordinate(
-              blocks[1].coordinate.y,
-              [blocks[1].coordinate.xs[0], blocks[1].coordinate.xs[1]],
-            ),
-          ),
-        ]);
-    }
+    try {
+      switch (orientation.current) {
+        case EnumShapeOrientation.one:
+          blocks = List.from([
+            Block(blocks[0].coordinate + 6),
+            Block(blocks[1].coordinate + 10),
+            Block(blocks[2].coordinate - 4),
+            Block(blocks[3].coordinate),
+          ]);
+          break;
+        case EnumShapeOrientation.two:
+          blocks = List.from([
+            Block(blocks[0].coordinate + 4),
+            Block(blocks[1].coordinate - 2),
+            Block(blocks[2].coordinate + 6),
+            Block(blocks[3].coordinate ),
+          ]);
+          break;
+        case EnumShapeOrientation.three:
+          blocks = List.from([
+            Block(blocks[0].coordinate - 6),
+            Block(blocks[1].coordinate -10),
+            Block(blocks[2].coordinate + 4),
+            Block(blocks[3].coordinate),
+          ]);
+          break;
+        case EnumShapeOrientation.four:
+          blocks = List.from([
+            Block(blocks[0].coordinate - 4),
+            Block(blocks[1].coordinate + 2),
+            Block(blocks[2].coordinate - 6),
+            Block(blocks[3].coordinate),
+          ]);
+      }
+    } on TurnException {}
 
     orientation.next();
   }
@@ -108,9 +67,9 @@ class SShape extends ShapeAbstract {
   }
 
   @override
-  moveDown() {
+  moveDown(int contBricksOnX) {
     blocks.forEach((b) {
-      b.coordinate = Coordinate(b.coordinate.y + 1, b.coordinate.xs);
+      b.coordinate += contBricksOnX ;
     });
   }
 }
