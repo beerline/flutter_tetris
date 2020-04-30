@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertetris/game/shapes/shape.dart';
+import 'package:fluttertetris/game/ui_elements/brick.dart';
 
 abstract class PlayFieldAbstract {
   final int xSize;
   final int ySize;
   final Color colorBackGroundBlock;
-  List<ShapeAbstract> shapesList;
+  Map<int, Brick> bricks;
 
   PlayFieldAbstract(this.xSize, this.ySize, this.colorBackGroundBlock);
 

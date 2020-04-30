@@ -10,13 +10,22 @@ class GameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Widget buildBoard() {
       List<Widget> rows = [];
+      int orderNumber = 0;
       for (int i = 0; i < playField.ySize; i++) {
         List<Brick> bricks = [];
         for (int j = 0; j < playField.xSize; j++) {
-          Brick brick = Brick();
+          orderNumber++;
+          Color color;
+          if (playField.bricks != null &&
+              playField.bricks.containsKey(orderNumber)) {
+            color = playField.bricks[orderNumber].color;
+          } else {
+            color = playField.colorBackGroundBlock;
+          }
+
+          Brick brick = Brick(color: color);
           bricks.add(brick);
         }
         BricksRow row = BricksRow(bricks);
