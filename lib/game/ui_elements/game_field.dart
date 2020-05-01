@@ -1,43 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertetris/game/play_field.dart';
+import 'package:fluttertetris/game/game.dart';
 import 'package:fluttertetris/game/ui_elements/brick.dart';
 import 'package:fluttertetris/game/ui_elements/bricks_row.dart';
 
 class GameField extends StatelessWidget {
-  PlayFieldAbstract playField;
+  GameAbstract game;
 
-  GameField(this.playField) : super();
+  GameField(this.game) : super();
 
   @override
   Widget build(BuildContext context) {
-    Widget buildBoard() {
-      List<Widget> rows = [];
-      int orderNumber = 0;
-      for (int i = 0; i < playField.ySize; i++) {
-        List<Brick> bricks = [];
-        for (int j = 0; j < playField.xSize; j++) {
-          orderNumber++;
-          Color color;
-          if (playField.blocks != null &&
-              playField.blocks.containsKey(orderNumber)) {
-            color = playField.blocks[orderNumber].color;
-          } else {
-            color = playField.colorBackGroundBlock;
-          }
+    if (game is GameAbstract) {
+      Widget buildBoard() {
+        List<Widget> rows = [];
+        int cellOrderNumber = 0;
+        for (int i = 0; i < game.playField.ySize; i++) {
+          List<Brick> bricks = [];
+          for (int j = 0; j < game.playField.xSize; j++) {
+            cellOrderNumber++;
+            Color color;
+            if (game.playField.blocks != null &&
+                game.playField.blocks.containsKey(cellOrderNumber)) {
+              color = game.playField.blocks[cellOrderNumber].color;
+            } else if (game.playingShape != null &&
+                game.playingShape.blocks.firstWhere((b) {
+                      return b.coordinate == cellOrderNumber;
+                    }, orElse: () => null) !=
+                    null) {
+              color = game.playingShape.blocks[0].color;
+            } else {
+              color = game.playField.colorBackGroundBlock;
+            }
 
-          Brick brick = Brick(color: color);
-          bricks.add(brick);
+            Brick brick = Brick(color: color,);
+            bricks.add(brick);
+          }
+          BricksRow row = BricksRow(bricks);
+          rows.add(row);
         }
-        BricksRow row = BricksRow(bricks);
-        rows.add(row);
+
+        return Container(
+          child: Column(children: rows),
+        );
       }
 
-      return Container(
-        child: Column(children: rows),
-      );
+      var newWidget = buildBoard();
+      return newWidget;
+    } else {
+      return SizedBox();
     }
-
-    var newWidget = buildBoard();
-    return newWidget;
   }
 }

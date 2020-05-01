@@ -1,6 +1,8 @@
 import 'package:fluttertetris/game/level.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/scores.dart';
+import 'package:fluttertetris/game/shapes/s_shape.dart';
+import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/speed.dart';
 
 abstract class GameAbstract {
@@ -8,12 +10,13 @@ abstract class GameAbstract {
   LevelAbstract level;
   final SpeedAbstract speed;
   final ScoreAbstract score;
+  ShapeAbstract playingShape;
 
   GameAbstract(this.playField, this.level, this.speed, this.score);
 
   step();
-  gameOver();
-  _detectCollision();
+  _gameOver();
+  _createShape();
 }
 
 class Game extends GameAbstract {
@@ -24,44 +27,44 @@ class Game extends GameAbstract {
     ScoreAbstract score,
   ) : super(playField, level, speed, score);
 
-  @override
-  _detectCollision() {
-    // TODO: implement _detectCollisions
-    return null;
-  }
 
 
 
   @override
   step() {
     // TODO: implement step
-    // if playing shape exist // in game
-      // move down
-      // if detectCollision // in shapes
-        // if detectBurningLines // in play_field
-          // removeLinesFromStack // in play_field
-          // addNewEmptyLinesOnTop // ??
-        // else
-          // mergeShapeToStack // in play_field
-    // else
-      // if create shape
-        // if detectCollision // in shapes
-          // if detectBurningLines // in play_field
-            // removeLinesFromStack // in play_field
-            // addNewEmptyLinesOnTop // ??
-          // else
-            // mergeShapeToStack // in play_field
-        // else
-          // moveDown // in shapes
-      // else
-        // gameOver // game
+    if (playingShape == null) { // in game
+      _createShape();
+      _collisionHandle();
+    } else {
+      playingShape.moveDown(playField);
+      _collisionHandle();
+    }
+    // if game over
+      // gameOver // game
+  }
 
+  _collisionHandle(){
+    if (playingShape.detectStackCollision(playField)) {
+      // if detectBurningLines // in play_field
+      // removeLinesFromStack // in play_field
+      // addNewEmptyLinesOnTop // ??
+      playField.mergeShapeToStack(playingShape.blocks);
+      playingShape = null;
+    }
   }
 
   @override
-  gameOver() {
+  _gameOver() {
     // TODO: implement gameOver
     return null;
+  }
+
+  @override
+  _createShape() {
+    // TODO randomize shape creating
+    // TODO position in center
+    playingShape = SShape();
   }
 
 

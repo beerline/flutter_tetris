@@ -10,12 +10,13 @@ class SShape extends ShapeAbstract {
 
   SShape({blocks})
       : blocks = blocks ??
-            List.from([
-              Block(8),
-              Block(9),
-              Block(12),
-              Block(13),
-            ]);
+      // todo calculate base on the playField.xSize
+      List.from([
+        Block(2),
+        Block(3),
+        Block(11),
+        Block(12),
+      ]);
 
   @override
   // TODO turning with counting boundaries
@@ -24,33 +25,33 @@ class SShape extends ShapeAbstract {
       switch (orientation.current) {
         case EnumShapeOrientation.one:
           blocks = List.from([
-            Block(blocks[0].coordinate + 6),
-            Block(blocks[1].coordinate + 10),
-            Block(blocks[2].coordinate - 4),
+            Block(blocks[0].coordinate + playField.xSize + 1),
+            Block(blocks[1].coordinate + playField.xSize * 2),
+            Block(blocks[2].coordinate - playField.xSize + 1),
             Block(blocks[3].coordinate),
           ]);
           break;
         case EnumShapeOrientation.two:
           blocks = List.from([
-            Block(blocks[0].coordinate + 4),
+            Block(blocks[0].coordinate + playField.xSize - 1),
             Block(blocks[1].coordinate - 2),
-            Block(blocks[2].coordinate + 6),
-            Block(blocks[3].coordinate ),
+            Block(blocks[2].coordinate + playField.xSize + 1),
+            Block(blocks[3].coordinate),
           ]);
           break;
         case EnumShapeOrientation.three:
           blocks = List.from([
-            Block(blocks[0].coordinate - 6),
-            Block(blocks[1].coordinate -10),
-            Block(blocks[2].coordinate + 4),
+            Block(blocks[0].coordinate - playField.xSize - 1),
+            Block(blocks[1].coordinate - playField.xSize * 2),
+            Block(blocks[2].coordinate + playField.xSize - 1),
             Block(blocks[3].coordinate),
           ]);
           break;
         case EnumShapeOrientation.four:
           blocks = List.from([
-            Block(blocks[0].coordinate - 4),
+            Block(blocks[0].coordinate - playField.xSize + 1),
             Block(blocks[1].coordinate + 2),
-            Block(blocks[2].coordinate - 6),
+            Block(blocks[2].coordinate - playField.xSize - 1),
             Block(blocks[3].coordinate),
           ]);
       }
@@ -59,19 +60,4 @@ class SShape extends ShapeAbstract {
     orientation.next();
   }
 
-  @override
-  bool detectCollision(PlayFieldAbstract playField) {
-    blocks.forEach((block){
-      if (playField.blocks.containsKey(block.coordinate)) {
-
-      }
-    });
-  }
-
-  @override
-  moveDown(PlayFieldAbstract playField) {
-    blocks.forEach((b) {
-      b.coordinate += playField.xSize;
-    });
-  }
 }

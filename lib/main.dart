@@ -39,7 +39,7 @@ class MainWidget extends StatefulWidget {
 class _MainWidgetState extends State<MainWidget> {
   GameAbstract game;
   static const double cellPadding = 1;
-  int count =0;
+  int count = 0;
 
   @override
   void initState() {
@@ -48,15 +48,46 @@ class _MainWidgetState extends State<MainWidget> {
   }
 
   void _startGame() {
-    Timer.periodic(Duration(milliseconds: 800), (Timer t) {
-      setState(() {
-//        count += 1;
-        game.step();
-      });
+    setState(() {
+      game.step();
+    });
+
+//    Timer.periodic(Duration(milliseconds: 800), (Timer t) {
+//      setState(() {
+////        count += 1;
+//        game.step();
+//      });
+//    });
+  }
+
+  _transformClockwise() {
+    setState(() {
+      game.playingShape.clockwise(game.playField);
     });
   }
 
-  _updateGame() {}
+  _transformContrClockwise() {
+    setState(() {
+    });
+  }
+
+  _moveLeft() {
+    setState(() {
+      game.playingShape.moveLeft(game.playField);
+    });
+  }
+
+  _moveRight() {
+    setState(() {
+      game.playingShape.moveRight(game.playField);
+    });
+  }
+
+  _moveDown() {
+    setState(() {
+      game.playingShape.moveDown(game.playField);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +100,7 @@ class _MainWidgetState extends State<MainWidget> {
                 flex: 5,
                 child: Row(
                   children: <Widget>[
-                    Flexible(flex: 3, child: GameField(game.playField)),
+                    Flexible(flex: 3, child: GameField(game)),
                     Flexible(
                       flex: 2,
                       child: Container(
@@ -82,14 +113,58 @@ class _MainWidgetState extends State<MainWidget> {
               ),
               Flexible(
                 flex: 2,
-                child: Row(
+                child: Column(
                   children: <Widget>[
-                    FlatButton(
-                      onPressed: _startGame,
-                      child: Text('Start'),
-                      color: Colors.lightGreenAccent,
+                    Row(
+                      children: <Widget>[
+                        FlatButton(
+                          onPressed: _startGame,
+                          child: Text('Start'),
+                          color: Colors.lightGreenAccent,
+                        ),
+                        Text('count=$count',
+                            style:
+                                TextStyle(color: Colors.amber, fontSize: 24)),
+                      ],
                     ),
-                    Text('count=$count',style: TextStyle(color: Colors.amber, fontSize: 24)),
+                    Row(
+                      children: [
+                        FlatButton(
+                          onPressed: _moveLeft,
+                          child: Icon(Icons.arrow_left),
+                          color: Colors.redAccent,
+                        ),
+                        SizedBox(width: 8),
+                        FlatButton(
+                          onPressed: _moveDown,
+                          child: Icon(Icons.arrow_drop_down),
+                          color: Colors.redAccent[400],
+                        ),
+                        SizedBox(width: 8),
+                        FlatButton(
+                          onPressed: _moveRight,
+                          child: Icon(Icons.arrow_right),
+                          color: Colors.redAccent,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        FlatButton(
+                          onPressed: null,
+                          child: Icon(Icons.rotate_left),
+                          color: Colors.lightBlueAccent,
+                          disabledColor: Colors.grey[800],
+                        ),
+                        SizedBox(width: 8),
+                        FlatButton(
+                          onPressed: _transformClockwise,
+                          child: Icon(Icons.rotate_right),
+                          color: Colors.lightBlueAccent,
+                        ),
+
+                      ],
+                    ),
                   ],
                 ),
               ),

@@ -5,11 +5,11 @@ abstract class PlayFieldAbstract {
   final int xSize;
   final int ySize;
   final Color colorBackGroundBlock;
-  Map<int, Block> blocks;
+  Map<int, Block> blocks = {};
 
   PlayFieldAbstract(this.xSize, this.ySize, this.colorBackGroundBlock);
 
-  mergeShapeToStack(List<Block> blocks);
+  mergeShapeToStack(List<BlockAbstract> blocks);
   removeLinesFromStack();
   bool detectBurningLines();
 
