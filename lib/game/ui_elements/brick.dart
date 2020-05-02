@@ -5,8 +5,9 @@ class Brick extends StatelessWidget {
   bool isFinalBrick = false;
   final Color color;
   static const double cellPadding = 1;
+  final String text;
 
-  Brick({this.isLeadBrick, this.isFinalBrick, color})
+  Brick({this.isLeadBrick, this.isFinalBrick, color, this.text})
       : color = color ?? Colors.grey[800];
 
   @override
@@ -22,6 +23,7 @@ class Brick extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         child: Container(
           color: color,
+//          child: Text(text ?? '',style: TextStyle(fontSize: 16),),
         ),
       ),
     ));

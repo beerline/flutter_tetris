@@ -54,11 +54,16 @@ class Game extends GameAbstract {
 
   _collisionHandle(){
     if (playingShape.detectStackCollision(playField)) {
-      // if detectBurningLines // in play_field
-      // removeLinesFromStack // in play_field
-      // addNewEmptyLinesOnTop // ??
       playField.mergeShapeToStack(playingShape.blocks);
       playingShape = null;
+
+      var burnedLines = playField.detectBurningLines();
+
+      if (burnedLines.length > 0 ) {
+         playField.removeLinesFromStack(burnedLines);
+         // TODO calculate score
+      }
+
     }
   }
 
