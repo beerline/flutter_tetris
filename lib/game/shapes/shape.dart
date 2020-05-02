@@ -3,11 +3,15 @@ import 'package:fluttertetris/game/block.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
+class TurnException implements Exception {}
+
 abstract class ShapeAbstract {
   Color color;
+  List<BlockAbstract> blocks;
   ShapeOrientationAbstract _orientation = ShapeOrientation();
 
-  // TODO implement in future
+
+  ShapeAbstract(this.blocks, this.color);
 //  counterClockwise();
 
   clockwise(PlayFieldAbstract playField);
@@ -15,8 +19,6 @@ abstract class ShapeAbstract {
 //  List<BlockAbstract> coordinatesBlocks();
 
   get orientation => _orientation;
-
-  List<BlockAbstract> get blocks;
 
   bool detectStackCollision(PlayFieldAbstract playField) {
     var isCollision = false;
@@ -103,8 +105,6 @@ abstract class ShapeAbstract {
 //class LShape extends ShapeAbstract {}
 //
 //class JShape extends ShapeAbstract {}
-//
-//class OShape extends ShapeAbstract {}
 //
 //class IShape extends ShapeAbstract {}
 //

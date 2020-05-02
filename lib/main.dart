@@ -48,16 +48,16 @@ class _MainWidgetState extends State<MainWidget> {
   }
 
   void _startGame() {
-    setState(() {
-      game.step();
-    });
-
-//    Timer.periodic(Duration(milliseconds: 800), (Timer t) {
-//      setState(() {
-////        count += 1;
-//        game.step();
-//      });
+//    setState(() {
+//      game.step();
 //    });
+
+    Timer.periodic(Duration(milliseconds: 400), (Timer t) {
+      setState(() {
+//        count += 1;
+        game.step();
+      });
+    });
   }
 
   _transformClockwise() {

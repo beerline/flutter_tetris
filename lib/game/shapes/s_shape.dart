@@ -1,22 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertetris/game/block.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
-class TurnException implements Exception {}
-
 class SShape extends ShapeAbstract {
-  List<BlockAbstract> blocks;
 
-  SShape({blocks})
-      : blocks = blocks ??
+
+  SShape({List<BlockAbstract> blocks, Color color})
+      :super( blocks ??
       // todo calculate base on the playField.xSize
       List.from([
         Block(2),
         Block(3),
         Block(11),
         Block(12),
-      ]);
+      ]), color);
 
   @override
   // TODO turning with counting boundaries

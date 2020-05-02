@@ -1,6 +1,7 @@
 import 'package:fluttertetris/game/level.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/scores.dart';
+import 'package:fluttertetris/game/shapes/o_shape.dart';
 import 'package:fluttertetris/game/shapes/s_shape.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/speed.dart';
@@ -11,6 +12,7 @@ abstract class GameAbstract {
   final SpeedAbstract speed;
   final ScoreAbstract score;
   ShapeAbstract playingShape;
+  bool needCheckCollision = false;
 
   GameAbstract(this.playField, this.level, this.speed, this.score);
 
@@ -35,10 +37,16 @@ class Game extends GameAbstract {
     // TODO: implement step
     if (playingShape == null) { // in game
       _createShape();
-      _collisionHandle();
     } else {
-      playingShape.moveDown(playField);
-      _collisionHandle();
+      if (needCheckCollision) {
+        _collisionHandle();
+        needCheckCollision = false;
+      } else {
+        playingShape.moveDown(playField);
+        needCheckCollision = true;
+      }
+
+
     }
     // if game over
       // gameOver // game
@@ -64,7 +72,7 @@ class Game extends GameAbstract {
   _createShape() {
     // TODO randomize shape creating
     // TODO position in center
-    playingShape = SShape();
+    playingShape = OShape();
   }
 
 

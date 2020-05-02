@@ -3,6 +3,8 @@ import 'package:fluttertetris/game/level.dart';
 abstract class SpeedAbstract {
 
   double getMillisecond(LevelAbstract level) {
+    // todo may be need to additionally divide by 2, because moveDown and
+    // check collision is in different iteration
     return getFramesPerCell(level.current) / fps * 1000;
   }
 
