@@ -11,7 +11,7 @@ abstract class PlayFieldAbstract {
 
   mergeShapeToStack(List<BlockAbstract> blocks);
   removeLinesFromStack();
-  bool detectBurningLines();
+  Map<int, Block> detectBurningLines();
 
 }
 
@@ -28,8 +28,8 @@ class PlayField extends PlayFieldAbstract {
         );
 
   @override
-  bool detectBurningLines() {
-    // TODO: implement detectBurningLines
+  Map<int, Block> detectBurningLines() {
+
     return null;
   }
 

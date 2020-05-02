@@ -41,7 +41,7 @@ abstract class ShapeAbstract {
   bool detectLeftCollision(PlayFieldAbstract playField) {
     bool isCollision = false;
     for (final b in blocks) {
-      if ((b.coordinate -1 ) % playField.xSize == 0) {
+      if ((b.coordinate ) % playField.xSize == 0) {
         //reach lift boundary
         isCollision = true;
         break;
@@ -57,10 +57,7 @@ abstract class ShapeAbstract {
   bool detectRightCollision(PlayFieldAbstract playField) {
     bool isCollision = false;
     for (final b in blocks) {
-      if ((b.coordinate / playField.xSize).floor() <
-          ((b.coordinate + 1) / playField.xSize)
-        && (b.coordinate ) % playField.xSize == 0
-      ) {
+      if ((b.coordinate + 1 ) % playField.xSize == 0) {
         // reach right boundary
         isCollision = true;
         break;

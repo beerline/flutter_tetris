@@ -11,10 +11,10 @@ class SShape extends ShapeAbstract {
       :super( blocks ??
       // todo calculate base on the playField.xSize
       List.from([
+        Block(1),
         Block(2),
-        Block(3),
+        Block(10),
         Block(11),
-        Block(12),
       ]), color);
 
   @override

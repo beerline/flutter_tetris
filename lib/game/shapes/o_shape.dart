@@ -8,10 +8,10 @@ class OShape extends ShapeAbstract {
       :super( blocks ??
       // todo calculate base on the playField.xSize
       List.from([
+        Block(0),
         Block(1),
-        Block(2),
+        Block(10),
         Block(11),
-        Block(12),
       ]), color);
 
   @override
