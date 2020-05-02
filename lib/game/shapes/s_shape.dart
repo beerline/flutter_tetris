@@ -6,7 +6,6 @@ import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
 class SShape extends ShapeAbstract {
 
-
   SShape({List<BlockAbstract> blocks, Color color})
       :super( blocks ??
       // todo calculate base on the playField.xSize

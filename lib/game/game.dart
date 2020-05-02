@@ -1,9 +1,8 @@
 import 'package:fluttertetris/game/level.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/scores.dart';
-import 'package:fluttertetris/game/shapes/o_shape.dart';
-import 'package:fluttertetris/game/shapes/s_shape.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
+import 'package:fluttertetris/game/shapes/shape_creator.dart';
 import 'package:fluttertetris/game/speed.dart';
 
 abstract class GameAbstract {
@@ -13,12 +12,19 @@ abstract class GameAbstract {
   final ScoreAbstract score;
   ShapeAbstract playingShape;
   bool needCheckCollision = false;
+  final ShapeCreatorAbstract _shapeCreator;
+  int _burnedLines = 0;
 
-  GameAbstract(this.playField, this.level, this.speed, this.score);
+  GameAbstract(
+      this.playField, this.level, this.speed, this.score, this._shapeCreator);
 
   step();
+
   _gameOver();
+
   _createShape();
+
+  get burnedLines => _burnedLines;
 }
 
 class Game extends GameAbstract {
@@ -27,15 +33,13 @@ class Game extends GameAbstract {
     LevelAbstract level,
     SpeedAbstract speed,
     ScoreAbstract score,
-  ) : super(playField, level, speed, score);
-
-
-
+    ShapeCreatorAbstract shapeCreator,
+  ) : super(playField, level, speed, score, shapeCreator);
 
   @override
   step() {
     // TODO: implement step
-    if (playingShape == null) { // in game
+    if (playingShape == null) {
       _createShape();
     } else {
       if (needCheckCollision) {
@@ -45,25 +49,25 @@ class Game extends GameAbstract {
         playingShape.moveDown(playField);
         needCheckCollision = true;
       }
-
-
     }
+
     // if game over
-      // gameOver // game
+    // gameOver // game
   }
 
-  _collisionHandle(){
+  _collisionHandle() {
     if (playingShape.detectStackCollision(playField)) {
       playField.mergeShapeToStack(playingShape.blocks);
       playingShape = null;
 
       var burnedLines = playField.detectBurningLines();
 
-      if (burnedLines.length > 0 ) {
-         playField.removeLinesFromStack(burnedLines);
-         score.setScore(burnedLines.length, level.current);
+      if (burnedLines.length > 0) {
+        playField.removeLinesFromStack(burnedLines);
+        score.setScore(burnedLines.length, level.current);
+        _burnedLines += burnedLines.length;
+        level.increaseLevel(this);
       }
-
     }
   }
 
@@ -75,10 +79,7 @@ class Game extends GameAbstract {
 
   @override
   _createShape() {
-    // TODO randomize shape creating
     // TODO position in center
-    playingShape = OShape();
+    playingShape = _shapeCreator.create(playField);
   }
-
-
 }

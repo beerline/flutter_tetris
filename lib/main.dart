@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertetris/game/block.dart';
 import 'package:fluttertetris/game/game.dart';
 import 'package:fluttertetris/game/ui_elements/game_field.dart';
 import 'package:get_it/get_it.dart';
@@ -38,23 +39,77 @@ class MainWidget extends StatefulWidget {
 
 class _MainWidgetState extends State<MainWidget> {
   GameAbstract game;
-  static const double cellPadding = 1;
-  int count = 0;
+  Timer _timer;
 
   @override
   void initState() {
     super.initState();
     game = serviceLocator<GameAbstract>();
+
+    //todo remove moc
+    game.playField.mergeShapeToStack([
+      Block(160),
+      Block(161),
+      Block(162),
+      Block(163),
+      Block(164),
+      Block(165),
+      Block(166),
+      Block(167),
+      Block(168),
+      Block(169),
+      Block(170),
+      Block(171),
+      Block(172),
+      Block(173),
+      Block(174),
+      Block(175),
+      Block(176),
+      Block(177),
+      Block(178),
+//      Block(179),
+
+      Block(180),
+      Block(181),
+      Block(182),
+      Block(183),
+      Block(184),
+      Block(185),
+      Block(186),
+      Block(187),
+      Block(188),
+      Block(190),
+      Block(191),
+      Block(192),
+      Block(193),
+      Block(194),
+      Block(195),
+      Block(196),
+      Block(197),
+      Block(198),
+      Block(199),
+
+      Block(140),
+      Block(141),
+      Block(150),
+      Block(151),
+    ]);
   }
 
   void _startGame() {
-//    setState(() {
-//      game.step();
-//    });
+    setState(() {
+      game.step();
+    });
 
-    Timer.periodic(Duration(milliseconds: 400), (Timer t) {
+//    _runTimer(800);
+  }
+
+  _runTimer(int milliseconds) {
+    if (_timer is Timer) {
+      _timer.cancel();
+    }
+    _timer = Timer.periodic(Duration(milliseconds: milliseconds), (Timer t) {
       setState(() {
-//        count += 1;
         game.step();
       });
     });
@@ -67,8 +122,7 @@ class _MainWidgetState extends State<MainWidget> {
   }
 
   _transformContrClockwise() {
-    setState(() {
-    });
+    setState(() {});
   }
 
   _moveLeft() {
@@ -103,9 +157,21 @@ class _MainWidgetState extends State<MainWidget> {
                     Flexible(flex: 3, child: GameField(game)),
                     Flexible(
                       flex: 2,
-                      child: Container(
-                        height: 210,
-                        color: Colors.blue,
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'Level = ' + (game.level.current ?? 0).toString(),
+                            style: TextStyle(color: Colors.amber, fontSize: 24),
+                          ),
+                          Text(
+                            'Score = ' + (game.score.current ?? 0).toString(),
+                            style: TextStyle(color: Colors.amber, fontSize: 24),
+                          ),
+                          Text(
+                            'Lines = ' + (game.burnedLines ?? 0).toString(),
+                            style: TextStyle(color: Colors.amber, fontSize: 24),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -122,9 +188,6 @@ class _MainWidgetState extends State<MainWidget> {
                           child: Text('Start'),
                           color: Colors.lightGreenAccent,
                         ),
-                        Text('count=$count',
-                            style:
-                                TextStyle(color: Colors.amber, fontSize: 24)),
                       ],
                     ),
                     Row(
@@ -162,7 +225,12 @@ class _MainWidgetState extends State<MainWidget> {
                           child: Icon(Icons.rotate_right),
                           color: Colors.lightBlueAccent,
                         ),
-
+                        SizedBox(width: 8),
+                        FlatButton(
+                          onPressed: (){_runTimer(100);},
+                          child: Icon(Icons.av_timer),
+                          color: Colors.yellowAccent,
+                        ),
                       ],
                     ),
                   ],

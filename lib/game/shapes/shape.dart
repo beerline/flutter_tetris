@@ -95,14 +95,3 @@ abstract class ShapeAbstract {
     }
   }
 }
-
-//
-//class ZShape extends ShapeAbstract {}
-//
-//class LShape extends ShapeAbstract {}
-//
-//class JShape extends ShapeAbstract {}
-//
-//class IShape extends ShapeAbstract {}
-//
-//class TShape extends ShapeAbstract {}
