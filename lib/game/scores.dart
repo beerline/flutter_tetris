@@ -16,6 +16,6 @@ class ScoreOriginalNest extends ScoreAbstract {
 
   @override
   void setScore(int burnedLines, int level) {
-    _current = burnedLinesToBasePoints[burnedLines] * (level + 1);
+    _current = (_current ?? 0) + burnedLinesToBasePoints[burnedLines] * (level + 1);
   }
 }

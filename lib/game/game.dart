@@ -61,7 +61,7 @@ class Game extends GameAbstract {
 
       if (burnedLines.length > 0 ) {
          playField.removeLinesFromStack(burnedLines);
-         // TODO calculate score
+         score.setScore(burnedLines.length, level.current);
       }
 
     }
