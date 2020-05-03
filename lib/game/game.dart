@@ -1,9 +1,11 @@
 import 'package:fluttertetris/game/level.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/scores.dart';
+import 'package:fluttertetris/game/shapes/i_shape.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_creator.dart';
 import 'package:fluttertetris/game/speed.dart';
+import 'package:fluttertetris/main.dart';
 
 abstract class GameAbstract {
   final PlayFieldAbstract playField;
@@ -14,6 +16,7 @@ abstract class GameAbstract {
   bool needCheckCollision = false;
   final ShapeCreatorAbstract _shapeCreator;
   int _burnedLines = 0;
+  SetTimer setTimer;
 
   GameAbstract(
       this.playField, this.level, this.speed, this.score, this._shapeCreator);
@@ -67,6 +70,7 @@ class Game extends GameAbstract {
         score.setScore(burnedLines.length, level.current);
         _burnedLines += burnedLines.length;
         level.increaseLevel(this);
+        setTimer(speed.getMillisecond(level));
       }
     }
   }

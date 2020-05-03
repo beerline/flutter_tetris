@@ -15,6 +15,8 @@ void main() async {
   return runApp(TetrisApp());
 }
 
+typedef SetTimer = void Function(int milliseconds);
+
 class TetrisApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class _MainWidgetState extends State<MainWidget> {
   void initState() {
     super.initState();
     game = serviceLocator<GameAbstract>();
+    game.setTimer = _setTimer;
 
     //todo remove moc
     game.playField.mergeShapeToStack([
@@ -138,14 +141,14 @@ class _MainWidgetState extends State<MainWidget> {
   }
 
   void _startGame() {
-    setState(() {
-      game.step();
-    });
+//    setState(() {
+//      game.step();
+//    });
 
-//    _runTimer(400);
+    _setTimer(400);
   }
 
-  _runTimer(int milliseconds) {
+  _setTimer(int milliseconds) {
     if (_timer is Timer) {
       _timer.cancel();
     }
