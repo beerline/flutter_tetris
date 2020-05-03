@@ -24,7 +24,7 @@ class PlayField extends PlayFieldAbstract {
     int ySize,
     Color colorBackGroundBlock,
   }) : super(
-          // TODO роверять что количество блоков по X ратно блокам по Y
+          // TODO проверять что количество блоков по X ратно блокам по Y
           xSize ?? 10,
           ySize ?? 20,
           colorBackGroundBlock ?? Colors.grey[850],
@@ -32,7 +32,7 @@ class PlayField extends PlayFieldAbstract {
 
   @override
   SplayTreeMap<int, List<Block>> detectBurningLines() {
-    var  blocksInLine = SplayTreeMap<int, List<Block>>();
+    var blocksInLine = SplayTreeMap<int, List<Block>>();
 
     blocks.forEach((coordinate, block) {
       final int line = (coordinate / xSize).floor();
@@ -66,7 +66,6 @@ class PlayField extends PlayFieldAbstract {
       }
     });
 
-
     // move other blocks down
     lineForRemoving.forEach((line, blockList) {
       Map<int, Block> resBlocks = {};
@@ -77,12 +76,11 @@ class PlayField extends PlayFieldAbstract {
           resBlocks.addAll({coordinate + xSize: restBlock});
         } else {
           var restBlock = block;
-          resBlocks.addAll({coordinate : restBlock});
+          resBlocks.addAll({coordinate: restBlock});
         }
       });
       blocks = resBlocks;
     });
-
 
     return null;
   }

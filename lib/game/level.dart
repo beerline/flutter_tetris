@@ -10,13 +10,13 @@ abstract class LevelAbstract {
   increaseLevel(GameAbstract game);
 }
 
-class Level extends LevelAbstract{
-  static const BURNING_LINES_LEVEL_STEP = 2;
+class Level extends LevelAbstract {
+  static const BURNING_LINES_LEVEL_STEP = 10;
 
   Level({int level}) : super(level ?? 0);
 
-  increaseLevel(GameAbstract game){
-    if ( ((_current + 1) * BURNING_LINES_LEVEL_STEP) <= game.burnedLines ) {
+  increaseLevel(GameAbstract game) {
+    if (((_current + 1) * BURNING_LINES_LEVEL_STEP) <= game.burnedLines) {
       _current += 1;
     }
   }

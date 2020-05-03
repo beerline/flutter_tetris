@@ -6,10 +6,9 @@ import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
 class TShape extends ShapeAbstract {
-  TShape(PlayFieldAbstract playField, {List<BlockAbstract> blocks, Color color})
+  TShape(PlayFieldAbstract playField, Color color, {List<BlockAbstract> blocks})
       : super(
           blocks ??
-              // todo calculate base on the playField.xSize
               List.from([
                 Block(0, color),
                 Block(1, color),
@@ -19,44 +18,65 @@ class TShape extends ShapeAbstract {
         );
 
   @override
-  // TODO turning with counting boundaries
   clockwise(PlayFieldAbstract playField) {
-    try {
-      switch (orientation.current) {
-        case EnumShapeOrientation.one:
-          blocks = List.from([
-            Block(blocks[0].coordinate - playField.xSize + 1, blocks[0].color),
-            Block(blocks[1].coordinate, blocks[0].color),
-            Block(blocks[2].coordinate + playField.xSize - 1, blocks[0].color),
-            Block(blocks[3].coordinate - playField.xSize - 1, blocks[0].color),
-          ]);
-          break;
-        case EnumShapeOrientation.two:
-          blocks = List.from([
+    List<Block> newBlocks;
+    switch (orientation.current) {
+      case EnumShapeOrientation.one:
+//      - - -    - 0 -
+//      0 1 2 => 3 1 -
+//      - 3 -    - 2 -
+        newBlocks = List.from([
+          Block(blocks[0].coordinate - playField.xSize + 1, blocks[0].color),
+          Block(blocks[1].coordinate, blocks[0].color),
+          Block(blocks[2].coordinate + playField.xSize - 1, blocks[0].color),
+          Block(blocks[3].coordinate - playField.xSize - 1, blocks[0].color),
+        ]);
+        break;
+      case EnumShapeOrientation.two:
+//      - 0 -    - 3 -
+//      3 1 - => 2 1 0
+//      - 2 -    - - -
+        if (canRotateNearBoundRight(1, playField)) {
+          newBlocks = List.from([
             Block(blocks[0].coordinate + playField.xSize + 1, blocks[0].color),
             Block(blocks[1].coordinate, blocks[0].color),
             Block(blocks[2].coordinate - playField.xSize - 1, blocks[0].color),
             Block(blocks[3].coordinate - playField.xSize + 1, blocks[0].color),
           ]);
-          break;
-        case EnumShapeOrientation.three:
-          blocks = List.from([
-            Block(blocks[0].coordinate + playField.xSize - 1, blocks[0].color),
-            Block(blocks[1].coordinate, blocks[0].color),
-            Block(blocks[2].coordinate - playField.xSize + 1, blocks[0].color),
-            Block(blocks[3].coordinate + playField.xSize + 1, blocks[0].color),
-          ]);
-          break;
-        case EnumShapeOrientation.four:
-          blocks = List.from([
+        }
+        break;
+      case EnumShapeOrientation.three:
+//      - 3 -    - 2 -
+//      2 1 0 => - 1 3
+//      - - -    - 0 -
+        newBlocks = List.from([
+          Block(blocks[0].coordinate + playField.xSize - 1, blocks[0].color),
+          Block(blocks[1].coordinate, blocks[0].color),
+          Block(blocks[2].coordinate - playField.xSize + 1, blocks[0].color),
+          Block(blocks[3].coordinate + playField.xSize + 1, blocks[0].color),
+        ]);
+        break;
+      case EnumShapeOrientation.four:
+//      - 2 -    - -
+//      - 1 3 => 0 1 2
+//      - 0 -    - 3 -
+        if (canRotateNearBoundLeft(1, playField)) {
+          newBlocks = List.from([
             Block(blocks[0].coordinate - playField.xSize - 1, blocks[0].color),
             Block(blocks[1].coordinate, blocks[0].color),
             Block(blocks[2].coordinate + playField.xSize + 1, blocks[0].color),
             Block(blocks[3].coordinate + playField.xSize - 1, blocks[0].color),
           ]);
-      }
-    } on TurnException {}
+        }
+    }
 
-    orientation.next();
+    if (newBlocks != null) {
+      ShapeAbstract newShape =
+          TShape(playField, blocks.first.color, blocks: newBlocks);
+      if (!newShape.detectStackCollision(playField)) {
+        blocks = newBlocks;
+        orientation.next();
+      }
+    }
   }
 }

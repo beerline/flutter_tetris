@@ -10,8 +10,8 @@ abstract class ShapeAbstract {
   List<BlockAbstract> blocks;
   ShapeOrientationAbstract _orientation = ShapeOrientation();
 
+  ShapeAbstract(this.blocks);
 
-  ShapeAbstract(this.blocks/*, this.color*/);
 //  counterClockwise();
 
   clockwise(PlayFieldAbstract playField);
@@ -41,11 +41,11 @@ abstract class ShapeAbstract {
   bool detectLeftCollision(PlayFieldAbstract playField) {
     bool isCollision = false;
     for (final b in blocks) {
-      if ((b.coordinate ) % playField.xSize == 0) {
+      if ((b.coordinate) % playField.xSize == 0) {
         //reach lift boundary
         isCollision = true;
         break;
-      }else if (playField.blocks.containsKey(b.coordinate - 1)) {
+      } else if (playField.blocks.containsKey(b.coordinate - 1)) {
         // reach another shape on the left
         isCollision = true;
         break;
@@ -57,7 +57,7 @@ abstract class ShapeAbstract {
   bool detectRightCollision(PlayFieldAbstract playField) {
     bool isCollision = false;
     for (final b in blocks) {
-      if ((b.coordinate + 1 ) % playField.xSize == 0) {
+      if ((b.coordinate + 1) % playField.xSize == 0) {
         // reach right boundary
         isCollision = true;
         break;
@@ -71,6 +71,13 @@ abstract class ShapeAbstract {
     return isCollision;
   }
 
+  bool outOfBounds(PlayFieldAbstract playField) {
+    bool isOutOfBounds = false;
+//    for (b in blocks) {
+//      if () {}
+//    }
+  }
+
   moveDown(PlayFieldAbstract playField) {
     if (!detectStackCollision(playField)) {
       blocks.forEach((b) {
@@ -79,7 +86,7 @@ abstract class ShapeAbstract {
     }
   }
 
-  moveRight(PlayFieldAbstract playField, {int blockCount} ) {
+  moveRight(PlayFieldAbstract playField, {int blockCount}) {
     if (!detectRightCollision(playField)) {
       blocks.forEach((b) {
         b.coordinate += blockCount ?? 1;
@@ -93,5 +100,35 @@ abstract class ShapeAbstract {
         b.coordinate -= blockCount ?? 1;
       });
     }
+  }
+
+  bool canRotateNearBoundLeft(
+      int numberBlocksNeedToRotate, PlayFieldAbstract playField) {
+    bool canRotate = true;
+    for (var b in blocks) {
+      final int firstCoordinateInLine =
+          (b.coordinate / playField.xSize).floor() * playField.xSize;
+      if (numberBlocksNeedToRotate > (b.coordinate - firstCoordinateInLine)) {
+        canRotate = false;
+      }
+    }
+
+    return canRotate;
+  }
+
+  bool canRotateNearBoundRight(
+      int numberBlocksNeedToRotate, PlayFieldAbstract playField) {
+    bool canRotate = true;
+    for (var b in blocks) {
+      final int lastCoordinateInLine =
+          (b.coordinate / playField.xSize).floor() * playField.xSize +
+              playField.xSize -
+              1;
+      if (numberBlocksNeedToRotate > (lastCoordinateInLine - b.coordinate)) {
+        canRotate = false;
+      }
+    }
+
+    return canRotate;
   }
 }

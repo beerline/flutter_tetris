@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:fluttertetris/game/level.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/scores.dart';
-import 'package:fluttertetris/game/shapes/i_shape.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_creator.dart';
 import 'package:fluttertetris/game/speed.dart';
@@ -26,8 +25,6 @@ abstract class GameAbstract {
 
   step();
 
-  _gameOver();
-
   _createShape();
 
   get burnedLines => _burnedLines;
@@ -44,7 +41,6 @@ class Game extends GameAbstract {
 
   @override
   step() {
-    // TODO: implement step
     if (playingShape == null) {
       _createShape();
     } else {
@@ -57,10 +53,9 @@ class Game extends GameAbstract {
       }
     }
 
-     if (_isGameOver()) {
-       stopTimer();
-       // gameOver
-     }
+    if (_isGameOver()) {
+      stopTimer();
+    }
   }
 
   _collisionHandle() {
@@ -81,17 +76,13 @@ class Game extends GameAbstract {
   }
 
   @override
-  _gameOver() {
-    // TODO: implement gameOver
-    return null;
-  }
-
-  @override
   _createShape() {
     playingShape = _shapeCreator.create(playField);
   }
 
-  bool _isGameOver(){
-    return (playField.blocks.keys.fold(1000000, min) / playField.xSize).floor() == 0;
+  bool _isGameOver() {
+    return (playField.blocks.keys.fold(1000000, min) / playField.xSize)
+            .floor() ==
+        0;
   }
 }

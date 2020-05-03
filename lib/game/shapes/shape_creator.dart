@@ -30,31 +30,32 @@ class ShapeCreator implements ShapeCreatorAbstract {
     switch (random.nextInt(7)) {
       // 7 to generate random 0 - 6
       case 0:
-        shape = SShape(playField, color: color);
+        shape = SShape(playField, color);
         shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
         break;
       case 1:
-        shape = OShape(playField, color: color);
+        shape = OShape(playField,  color);
         shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1);
         break;
       case 2:
-        shape = LShape(playField, color: color);
+        shape = LShape(playField, color);
         shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
         break;
       case 3:
-        shape = IShape(playField, color: color);
-        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 2);
+        shape = IShape(playField, color);
+        shape.moveRight(
+            playField, blockCount: (playField.xSize / 2).floor() - 2);
         break;
       case 4:
-        shape = TShape(playField, color: color);
+        shape = TShape(playField, color);
         shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1);
         break;
       case 5:
-        shape = ZShape(playField, color: color);
+        shape = ZShape(playField, color);
         shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
         break;
       case 6:
-        shape = JShape(playField, color: color);
+        shape = JShape(playField, color);
         shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
         break;
     }
