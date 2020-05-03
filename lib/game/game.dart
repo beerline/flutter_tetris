@@ -88,7 +88,6 @@ class Game extends GameAbstract {
 
   @override
   _createShape() {
-    // TODO position in center
     playingShape = _shapeCreator.create(playField);
   }
 

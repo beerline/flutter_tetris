@@ -6,15 +6,15 @@ import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
 class SShape extends ShapeAbstract {
 
-  SShape({List<BlockAbstract> blocks, Color color})
+  SShape(PlayFieldAbstract playField, {List<BlockAbstract> blocks, Color color})
       :super( blocks ??
       // todo calculate base on the playField.xSize
       List.from([
-        Block(1),
-        Block(2),
-        Block(10),
-        Block(11),
-      ]), color);
+        Block(1, color: color),
+        Block(2, color: color),
+        Block(playField.xSize, color: color),
+        Block(playField.xSize + 1, color: color),
+      ]), );
 
   @override
   // TODO turning with counting boundaries

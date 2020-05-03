@@ -6,12 +6,12 @@ import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 class TurnException implements Exception {}
 
 abstract class ShapeAbstract {
-  Color color;
+//  Color color;
   List<BlockAbstract> blocks;
   ShapeOrientationAbstract _orientation = ShapeOrientation();
 
 
-  ShapeAbstract(this.blocks, this.color);
+  ShapeAbstract(this.blocks/*, this.color*/);
 //  counterClockwise();
 
   clockwise(PlayFieldAbstract playField);
@@ -79,18 +79,18 @@ abstract class ShapeAbstract {
     }
   }
 
-  moveRight(PlayFieldAbstract playField) {
+  moveRight(PlayFieldAbstract playField, {int blockCount} ) {
     if (!detectRightCollision(playField)) {
       blocks.forEach((b) {
-        b.coordinate += 1;
+        b.coordinate += blockCount ?? 1;
       });
     }
   }
 
-  moveLeft(PlayFieldAbstract playField) {
+  moveLeft(PlayFieldAbstract playField, {int blockCount}) {
     if (!detectLeftCollision(playField)) {
       blocks.forEach((b) {
-        b.coordinate -= 1;
+        b.coordinate -= blockCount ?? 1;
       });
     }
   }

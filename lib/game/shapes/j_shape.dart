@@ -6,17 +6,17 @@ import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
 class JShape extends ShapeAbstract {
-  JShape({List<BlockAbstract> blocks, Color color})
+  JShape(PlayFieldAbstract playField, {List<BlockAbstract> blocks, Color color})
       : super(
-      blocks ??
-          // todo calculate base on the playField.xSize
-          List.from([
-            Block(0),
-            Block(1),
-            Block(2),
-            Block(12),
-          ]),
-      color);
+          blocks ??
+              // todo calculate base on the playField.xSize
+              List.from([
+                Block(0, color: color),
+                Block(1, color: color),
+                Block(2, color: color),
+                Block(playField.xSize + 2, color: color),
+              ]),
+        );
 
   @override
   clockwise(PlayFieldAbstract playField) {
@@ -33,7 +33,7 @@ class JShape extends ShapeAbstract {
         case EnumShapeOrientation.two:
           blocks = List.from([
             Block(blocks[0].coordinate + playField.xSize + 1),
-            Block(blocks[1].coordinate ),
+            Block(blocks[1].coordinate),
             Block(blocks[2].coordinate - playField.xSize - 1),
             Block(blocks[3].coordinate - playField.xSize * 2),
           ]);
@@ -41,15 +41,15 @@ class JShape extends ShapeAbstract {
         case EnumShapeOrientation.three:
           blocks = List.from([
             Block(blocks[0].coordinate + playField.xSize - 1),
-            Block(blocks[1].coordinate ),
+            Block(blocks[1].coordinate),
             Block(blocks[2].coordinate - playField.xSize + 1),
             Block(blocks[3].coordinate + 2),
           ]);
           break;
         case EnumShapeOrientation.four:
           blocks = List.from([
-            Block(blocks[0].coordinate - playField.xSize -1),
-            Block(blocks[1].coordinate ),
+            Block(blocks[0].coordinate - playField.xSize - 1),
+            Block(blocks[1].coordinate),
             Block(blocks[2].coordinate + playField.xSize + 1),
             Block(blocks[3].coordinate + playField.xSize * 2),
           ]);

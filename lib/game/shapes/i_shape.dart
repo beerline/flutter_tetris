@@ -6,17 +6,17 @@ import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
 class IShape extends ShapeAbstract {
-  IShape({List<BlockAbstract> blocks, Color color})
+  IShape(PlayFieldAbstract playField, {List<BlockAbstract> blocks, Color color})
       : super(
-      blocks ??
-          // todo calculate base on the playField.xSize
-          List.from([
-            Block(0),
-            Block(1),
-            Block(2),
-            Block(3),
-          ]),
-      color);
+          blocks ??
+              // todo calculate base on the playField.xSize
+              List.from([
+                Block(0, color: color),
+                Block(1, color: color),
+                Block(2, color: color),
+                Block(3, color: color),
+              ]),
+        );
 
   @override
   clockwise(PlayFieldAbstract playField) {

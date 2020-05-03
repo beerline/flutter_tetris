@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/shapes/i_shape.dart';
 import 'package:fluttertetris/game/shapes/j_shape.dart';
@@ -18,22 +19,47 @@ class ShapeCreator implements ShapeCreatorAbstract {
   @override
   ShapeAbstract create(PlayFieldAbstract playField) {
     Random random = Random();
-    switch (random.nextInt(7)) { // 7 to generate random 0 - 6
-      case 0:
-        return SShape();
-      case 1:
-        return OShape();
-      case 2:
-        return LShape();
-      case 3:
-        return IShape();
-      case 4:
-        return TShape();
-      case 5:
-        return ZShape();
-      case 6:
-        return JShape();
-    }
-  }
+    var color = Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    );
 
+    ShapeAbstract shape;
+    switch (random.nextInt(7)) {
+      // 7 to generate random 0 - 6
+      case 0:
+        shape = SShape(playField, color: color);
+        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
+        break;
+      case 1:
+        shape = OShape(playField, color: color);
+        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1);
+        break;
+      case 2:
+        shape = LShape(playField, color: color);
+        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
+        break;
+      case 3:
+        shape = IShape(playField, color: color);
+        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 2);
+        break;
+      case 4:
+        shape = TShape(playField, color: color);
+        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1);
+        break;
+      case 5:
+        shape = ZShape(playField, color: color);
+        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
+        break;
+      case 6:
+        shape = JShape(playField, color: color);
+        shape.moveRight(playField, blockCount: (playField.xSize / 2).floor() - 1 );
+        break;
+    }
+
+
+    return shape;
+  }
 }

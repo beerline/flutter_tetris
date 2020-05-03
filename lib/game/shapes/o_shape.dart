@@ -4,15 +4,15 @@ import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/shapes/shape.dart';
 
 class OShape extends ShapeAbstract {
-  OShape({List<BlockAbstract> blocks, Color color})
+  OShape(PlayFieldAbstract playField, {List<BlockAbstract> blocks, Color color})
       :super( blocks ??
       // todo calculate base on the playField.xSize
       List.from([
-        Block(0),
-        Block(1),
-        Block(10),
-        Block(11),
-      ]), color);
+        Block(0, color: color),
+        Block(1, color: color),
+        Block(playField.xSize, color: color),
+        Block(playField.xSize + 1, color: color),
+      ]), );
 
   @override
   clockwise(PlayFieldAbstract playField) {}

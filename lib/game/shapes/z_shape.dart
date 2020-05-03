@@ -6,17 +6,17 @@ import 'package:fluttertetris/game/shapes/shape.dart';
 import 'package:fluttertetris/game/shapes/shape_orientation.dart';
 
 class ZShape extends ShapeAbstract {
-  ZShape({List<BlockAbstract> blocks, Color color})
+  ZShape(PlayFieldAbstract playField, {List<BlockAbstract> blocks, Color color})
       : super(
-            blocks ??
-                // todo calculate base on the playField.xSize
-                List.from([
-                  Block(0),
-                  Block(1),
-                  Block(11),
-                  Block(12),
-                ]),
-            color);
+          blocks ??
+              // todo calculate base on the playField.xSize
+              List.from([
+                Block(0, color: color),
+                Block(1, color: color),
+                Block(playField.xSize + 1, color: color),
+                Block(playField.xSize + 2, color: color),
+              ]),
+        );
 
   @override
   // TODO turning with counting boundaries
@@ -43,7 +43,7 @@ class ZShape extends ShapeAbstract {
           blocks = List.from([
             Block(blocks[0].coordinate - 2),
             Block(blocks[1].coordinate - playField.xSize - 1),
-            Block(blocks[2].coordinate ),
+            Block(blocks[2].coordinate),
             Block(blocks[3].coordinate - playField.xSize + 1),
           ]);
           break;
