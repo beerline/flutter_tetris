@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertetris/game/block.dart';
 
@@ -11,9 +13,9 @@ abstract class PlayFieldAbstract {
 
   mergeShapeToStack(List<BlockAbstract> blocks);
 
-  removeLinesFromStack(Map<int, List<Block>> lineForRemoving);
+  removeLinesFromStack(SplayTreeMap<int, List<Block>> lineForRemoving);
 
-  Map<int, List<Block>> detectBurningLines();
+  SplayTreeMap<int, List<Block>> detectBurningLines();
 }
 
 class PlayField extends PlayFieldAbstract {
@@ -29,8 +31,8 @@ class PlayField extends PlayFieldAbstract {
         );
 
   @override
-  Map<int, List<Block>> detectBurningLines() {
-    Map<int, List<Block>> blocksInLine = {};
+  SplayTreeMap<int, List<Block>> detectBurningLines() {
+    var  blocksInLine = SplayTreeMap<int, List<Block>>();
 
     blocks.forEach((coordinate, block) {
       final int line = (coordinate / xSize).floor();
@@ -56,7 +58,7 @@ class PlayField extends PlayFieldAbstract {
   }
 
   @override
-  removeLinesFromStack(Map<int, List<Block>> lineForRemoving) {
+  removeLinesFromStack(SplayTreeMap<int, List<Block>> lineForRemoving) {
     lineForRemoving.forEach((line, blockList) {
       for (final b in blockList) {
         // remove line

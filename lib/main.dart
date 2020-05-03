@@ -48,16 +48,44 @@ class _MainWidgetState extends State<MainWidget> {
 
     //todo remove moc
     game.playField.mergeShapeToStack([
-      Block(160),
-      Block(161),
-      Block(162),
-      Block(163),
-      Block(164),
-      Block(165),
-      Block(166),
-      Block(167),
-      Block(168),
-      Block(169),
+      Block(140),
+      Block(141),
+      Block(150),
+      Block(151),
+
+      Block(128),
+
+      Block(130),
+//      Block(131),
+//      Block(132),
+//      Block(133),
+//      Block(134),
+//      Block(135),
+      Block(136),
+      Block(137),
+      Block(138),
+
+      Block(180),
+      Block(181),
+      Block(182),
+      Block(183),
+      Block(184),
+      Block(185),
+      Block(186),
+      Block(187),
+      Block(188),
+//      Block(189),
+
+      Block(140),
+      Block(141),
+      Block(142),
+      Block(143),
+//      Block(144),
+//      Block(145),
+      Block(146),
+      Block(147),
+      Block(148),
+
       Block(170),
       Block(171),
       Block(172),
@@ -69,15 +97,31 @@ class _MainWidgetState extends State<MainWidget> {
       Block(178),
 //      Block(179),
 
-      Block(180),
-      Block(181),
-      Block(182),
-      Block(183),
-      Block(184),
-      Block(185),
-      Block(186),
-      Block(187),
-      Block(188),
+      Block(150),
+      Block(151),
+      Block(152),
+      Block(153),
+      Block(154),
+//      Block(155),
+      Block(156),
+      Block(157),
+      Block(158),
+
+
+
+
+
+      Block(160),
+      Block(161),
+      Block(162),
+      Block(163),
+      Block(164),
+      Block(165),
+      Block(166),
+      Block(167),
+      Block(168),
+//      Block(169),
+
       Block(190),
       Block(191),
       Block(192),
@@ -87,12 +131,9 @@ class _MainWidgetState extends State<MainWidget> {
       Block(196),
       Block(197),
       Block(198),
-      Block(199),
+//      Block(199),
 
-      Block(140),
-      Block(141),
-      Block(150),
-      Block(151),
+
     ]);
   }
 
@@ -101,7 +142,7 @@ class _MainWidgetState extends State<MainWidget> {
       game.step();
     });
 
-//    _runTimer(800);
+//    _runTimer(400);
   }
 
   _runTimer(int milliseconds) {
@@ -188,6 +229,28 @@ class _MainWidgetState extends State<MainWidget> {
                           child: Text('Start'),
                           color: Colors.lightGreenAccent,
                         ),
+                        SizedBox(width: 8),
+                        FlatButton(
+                          onPressed: null,
+//                              () {
+//                            _runTimer(100);
+//                          },
+                          child: Icon(Icons.av_timer),
+                          color: Colors.yellowAccent,
+                        ),
+                        SizedBox(width: 8),
+                        FlatButton(
+                          onPressed: _transformClockwise,
+                          child: Icon(Icons.rotate_right),
+                          color: Colors.lightBlueAccent,
+                        ),
+                        SizedBox(width: 8),
+                        FlatButton(
+                          onPressed: null,
+                          child: Icon(Icons.rotate_left),
+                          color: Colors.lightBlueAccent,
+                          disabledColor: Colors.grey[800],
+                        ),
                       ],
                     ),
                     Row(
@@ -213,24 +276,7 @@ class _MainWidgetState extends State<MainWidget> {
                     ),
                     Row(
                       children: [
-                        FlatButton(
-                          onPressed: null,
-                          child: Icon(Icons.rotate_left),
-                          color: Colors.lightBlueAccent,
-                          disabledColor: Colors.grey[800],
-                        ),
-                        SizedBox(width: 8),
-                        FlatButton(
-                          onPressed: _transformClockwise,
-                          child: Icon(Icons.rotate_right),
-                          color: Colors.lightBlueAccent,
-                        ),
-                        SizedBox(width: 8),
-                        FlatButton(
-                          onPressed: (){_runTimer(100);},
-                          child: Icon(Icons.av_timer),
-                          color: Colors.yellowAccent,
-                        ),
+                        SizedBox(),
                       ],
                     ),
                   ],
