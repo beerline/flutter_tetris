@@ -10,5 +10,5 @@ abstract class BlockAbstract {
 }
 
 class Block extends BlockAbstract {
-  Block(int coordinate, {Color color}) : super(coordinate, color ?? Colors.deepPurpleAccent);
+  Block(int coordinate, Color color) : super(coordinate, color );
 }
