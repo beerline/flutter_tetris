@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fluttertetris/game/level.dart';
 import 'package:fluttertetris/game/play_field.dart';
 import 'package:fluttertetris/game/scores.dart';
@@ -17,6 +19,7 @@ abstract class GameAbstract {
   final ShapeCreatorAbstract _shapeCreator;
   int _burnedLines = 0;
   SetTimer setTimer;
+  Function stopTimer;
 
   GameAbstract(
       this.playField, this.level, this.speed, this.score, this._shapeCreator);
@@ -54,8 +57,10 @@ class Game extends GameAbstract {
       }
     }
 
-    // if game over
-    // gameOver // game
+     if (_isGameOver()) {
+       stopTimer();
+       // gameOver
+     }
   }
 
   _collisionHandle() {
@@ -85,5 +90,9 @@ class Game extends GameAbstract {
   _createShape() {
     // TODO position in center
     playingShape = _shapeCreator.create(playField);
+  }
+
+  bool _isGameOver(){
+    return (playField.blocks.keys.fold(1000000, min) / playField.xSize).floor() == 0;
   }
 }

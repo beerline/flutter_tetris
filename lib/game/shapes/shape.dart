@@ -24,7 +24,7 @@ abstract class ShapeAbstract {
     var isCollision = false;
 
     for (final b in blocks) {
-      if (b.coordinate + playField.xSize > playField.xSize * playField.ySize) {
+      if (b.coordinate + playField.xSize >= playField.xSize * playField.ySize) {
         // reach the bottom
         isCollision = true;
         break;
