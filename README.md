@@ -2,9 +2,16 @@
 
 Tetris flutter implemintation
 
-## Getting Started
+##  Getting StartedCompile by yourself
 
-This project is a starting point for a Flutter application.
+- install Flutter
+- clone it and run
+- flutter build apk
+
+and you will find the apk in path of build/app/outputs/apk/release/app-release.apk
+
+## Preview
+![preview](./_preview/demo.GIF)
 
 A few resources to get you started if this is your first Flutter project:
 
